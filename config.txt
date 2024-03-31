@@ -1,2 +1,2 @@
-usuario: agarrido@agarquitectura.es
-clave: Quilla2502Quilla
+usuario: email
+clave: Password
