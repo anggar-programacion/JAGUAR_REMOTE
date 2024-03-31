@@ -1,0 +1,1814 @@
+#: import RiseInTransition kivy.uix.screenmanager.RiseInTransition
+#: import SlideTransition kivy.uix.screenmanager.SlideTransition
+
+
+
+
+#Tarjeta personalizada ElementCard derivada de MDCard
+<ElementCard@MDCard>:
+	size: "200dp", "100dp"
+	radius:"10dp"
+	spacing:"10dp"
+	padding:"10dp"
+	text:""
+	sub_text:""
+	orientation:"vertical"
+	ripple_behavior: True
+	on_release:
+		app.root.transition= RiseInTransition()
+	MDBoxLayout:
+		orientation:"vertical"
+
+		#meter aqui una imagen
+	
+		MDLabel:
+			text:root.text
+			halign:"center"
+			text_color: 0, 0, 1, 1
+			
+
+		MDLabel:
+			text:root.sub_text
+			halign:"center"
+			text_color: 1,1,1,1
+
+		
+
+#Definicion de Pantalla personalizada CustomizeScreen derivada de MDBoxLayaut
+<CustomizeScreen@MDBoxLayout>:
+	orientation:"vertical"
+	text:""
+	padding:100
+	MDLabel:
+		text:root.text
+		halign:"center"
+		pos_hint:{"center_x":.5}
+	MDFillRoundFlatButton:
+		text:"volver.."
+		pos_hint:{"center_x":.5}
+		on_release:
+			app.root.current="pantalla principal"
+			app.root.transition=SlideTransition(direction="left")
+
+
+		
+
+#Definicion de la pantalla inicial
+
+<ui>:
+	MDScreen:
+		name: "pantalla principal"
+		md_bg_color:0,.5,.5,1
+
+				
+		MDBoxLayout:
+			orientation: "vertical"
+
+			#El rectangulo de arriba con el nombre de la APP
+			
+			MDBoxLayout:
+				size_hint:1,.2
+				orientation:"horizontal"
+				padding:"10dp"
+				MDCard:
+					radius:"10dp"
+					padding:"10dp"
+					line_color:1,0,1,1
+					
+					#El nombre del rectángulo
+					MDLabel:
+						text:"JAGUAR CONTROL REMOTO"
+						halign:"center"
+						pos_hint:{"center_y":0.5}
+
+					#El Swich para cambiar de estilo oscuro a claro y al contrario
+
+					MDSwitch:
+						pos_hint:{"center_y":0.5}
+						on_active:
+							app.change_style(*args)	
+
+			#la Matriz de tarjetas							
+			MDGridLayout:
+				cols:3
+				size_hint:1,.8
+				padding:{"10dp","10dp","10dp","10dp"}
+				spacing:"10dp"
+
+				#Definicion de las tarjeta personalizable, solo se pone lo que cambia
+
+				ElementCard:
+					text:"DATOS VEHICULO"
+					sub_text:"SUBTEXTO"
+					#si se pulsa nos lleva a la pantalla 01
+					on_release:
+						root.current="pantalla 01"
+
+
+				ElementCard:
+					text:"LOCALIZACIÓN VEHICULO"
+					sub_text:"SUBTEXTO"
+					on_release:
+						root.current="pantalla 02"
+						app.obtener_imagen_google()
+
+				ElementCard:
+					text:"MANTENIMIENTO VEHÍCULO"
+					sub_text:"SUBTEXTO"
+					on_release:
+						root.current="pantalla 03"
+
+				ElementCard:
+					text:"DATOS USUARIO"
+					sub_text:"SUBTEXTO"
+					on_release:
+						root.current="pantalla 04"
+				
+				ElementCard:
+					text:"SEGURIDAD VEHÍCULO"
+					sub_text:"SUBTEXTO"
+					on_release:
+						root.current="pantalla 05"					
+
+				ElementCard:
+					text:"ACCIONES VEHÍCULO"
+					sub_text:"SUBTEXTO"
+					on_release:
+						root.current="pantalla 06"
+
+				ElementCard:
+					text:"ALERTAS"
+					sub_text:"SUBTEXTO"
+					on_release:
+						root.current="pantalla 07"
+
+				ElementCard:
+					text:"CONFIGURACION PROGRAMA"
+					sub_text:"SUBTEXTO"
+					on_release:
+						root.current="pantalla 08"
+
+				ElementCard:
+					text:"FOTOS DEL COCHE "
+					sub_text:"SUBTEXTO"
+					on_release:
+						root.current="pantalla 09"
+
+
+
+	#Define las pantallas
+	MDScreen:
+		name: "pantalla 01"
+		md_bg_color:0,.5,.5,1
+		
+
+		MDBoxLayout:
+			orientation: "vertical"
+
+			#El rectangulo de arriba con el nombre de la APP
+			MDBoxLayout:
+				size_hint:1,.2
+				orientation:"horizontal"
+				padding:"10dp"
+				MDCard:
+					radius:"10dp"
+					padding:"10dp"
+					line_color:1,0,1,1
+					
+					#El nombre del rectángulo
+					MDLabel:
+						text:"JAGUAR CONTROL REMOTO"
+						halign:"center"
+						pos_hint:{"center_y":0.5}
+
+			MDBoxLayout:
+				size_hint:1,.6
+				orientation: "vertical"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:matricula_vehiculo
+						size_hint_y: 0.2
+						text:"Matricula del Vehículo:"
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:matricula_vehiculo_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:designacion_vehiculo
+						size_hint_y: 0.2
+						text:"Designación del Vehículo:"
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:designacion_vehiculo_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:bastidor_vehiculo
+						size_hint_y: 0.2
+						text:"Nª Bastidor del Vehículo:"
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:bastidor_vehiculo_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:ano_modelo_vehiculo
+						size_hint_y: 0.2
+						text:"Año construcción:"
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:ano_modelo_vehiculo_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:color_vehiculo
+						size_hint_y: 0.2
+						text:"Color Vehículo Ext:"
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:color_vehiculo_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:color_vehiculo_int
+						size_hint_y: 0.2
+						text:"Color Vehículo Int:"
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:color_vehiculo_int
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:codigo_coche
+						size_hint_y: 0.2
+						text:"Código int marca del vehículo:"
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:codigo_coche_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+
+			#Los dos botones de abajo
+			MDBoxLayout
+				orientation:"horizontal"
+				padding:"10dp"
+				size_hint_y: 0.5
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Inicial"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla principal"
+						app.root.transition=SlideTransition(direction="left")
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Siguiente"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla 02"
+						app.root.transition=SlideTransition(direction="right")
+
+			
+
+
+	
+	MDScreen:
+		name: "pantalla 02"
+		md_bg_color:0,.5,.5,1
+		MDBoxLayout:
+			orientation: "vertical"
+
+			#El rectangulo de arriba con el nombre de la APP
+			MDBoxLayout:
+				size_hint:1,.2
+				orientation:"horizontal"
+				padding:"10dp"
+				MDCard:
+					radius:"10dp"
+					padding:"10dp"
+					line_color:1,0,1,1
+					
+					#El nombre del rectángulo
+					MDLabel:
+						text:"JAGUAR CONTROL REMOTO"
+						halign:"center"
+						pos_hint:{"center_y":0.5}
+
+			MDBoxLayout:
+				size_hint:1,1
+				orientation: "vertical"
+
+
+				# Imagen en la parte superior
+        		AsyncImage:
+            		source: ''  # Reemplaza 'ruta_de_tu_imagen.jpg' con la ubicación de tu imagen
+            		size_hint_x: 1.0  # Ocupa el doble del ancho de la pantalla
+    				size_hint_y: None  # Fijamos la altura manualmente
+    				height: dp(300)  # Ajusta la altura según tus necesidades (por ejemplo, 400dp)
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:latitud
+						size_hint_y: 0.2
+						text:"Latitud: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:latitud_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:longitud
+						size_hint_y: 0.2
+						text:"Longitud: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:longitud_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:velocidad
+						size_hint_y: 0.2
+						text:"velocidad: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:velocidad_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.5
+					padding:"10dp"
+					id:map_layout
+
+
+				#Los dos botones de abajo
+			MDBoxLayout
+				orientation:"horizontal"
+				padding:"10dp"
+				size_hint_y: 0.5
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Inicial"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla principal"
+						app.root.transition=SlideTransition(direction="left")
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Siguiente"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla 03"
+						app.root.transition=SlideTransition(direction="right")
+
+
+
+	MDScreen:
+		name: "pantalla 03"
+		md_bg_color:0,.5,.5,1
+		MDBoxLayout:
+			orientation: "vertical"
+
+			#El rectangulo de arriba con el nombre de la APP
+			MDBoxLayout:
+				size_hint:1,.2
+				orientation:"horizontal"
+				padding:"10dp"
+				MDCard:
+					radius:"10dp"
+					padding:"10dp"
+					line_color:1,0,1,1
+					
+					#El nombre del rectángulo
+					MDLabel:
+						text:"JAGUAR CONTROL REMOTO"
+						halign:"center"
+						pos_hint:{"center_y":0.5}
+
+			MDBoxLayout:
+				size_hint:1,.6
+				orientation: "vertical"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:reserva_fuel
+						size_hint_y: 0.2
+						text:"Reserva combustible: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:reserva_fuel_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:km_cambio
+						size_hint_y: 0.2
+						text:"KM Cambio aceite: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:km_cambio_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:km_add_blue
+						size_hint_y: 0.2
+						text:"KM Reserva ADD:"
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:km_add_blue_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:km_totales
+						size_hint_y: 0.2
+						text:"KM Totales:"
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:km_totales_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:estado_motor
+						size_hint_y: 0.2
+						text:"Estado motor:"
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:estado_motor_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:voltaje_bateria
+						size_hint_y: 0.2
+						text:"Voltaje Bateria: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:voltaje_bateria_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:temp_motor
+						size_hint_y: 0.2
+						text:"Temperatura motor: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:temp_motor_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:liquido_limpia
+						size_hint_y: 0.2
+						text:"Liquido Limpia parabrisas: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:liquido_limpia_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:liquido_frenos
+						size_hint_y: 0.2
+						text:"Liquido frenos: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:liquido_frenos_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					padding:"10dp"
+					size_hint_y: 0.5
+
+					MDFillRoundFlatButton:
+						text:"Presión neumáticos"
+						size_hint_x: 0.5  # Ocupa la mitad del ancho
+						on_release:
+							app.root.current="presion ruedas"
+							app.root.transition=SlideTransition(direction="left")
+
+					MDFillRoundFlatButton:
+						text:"Estado neumáticos"
+						size_hint_x: 0.5  # Ocupa la mitad del ancho
+						on_release:
+							app.root.current="estado ruedas"
+							app.root.transition=SlideTransition(direction="right")
+				MDBoxLayout:
+					orientation:"horizontal"
+					padding:"10dp"
+					size_hint_y: 0.5
+
+					MDFillRoundFlatButton:
+						text:"Aire Acondicionado"
+						size_hint_x: 0.5  # Ocupa la mitad del ancho
+						on_release:
+							app.root.current="aire acondicionado"
+							app.root.transition=SlideTransition(direction="left")
+
+					MDFillRoundFlatButton:
+						text:"Carga coche electrico"
+						size_hint_x: 0.5  # Ocupa la mitad del ancho
+						on_release:
+							app.root.current="coche electrico"
+							app.root.transition=SlideTransition(direction="right")
+
+			#Los dos botones de abajo
+			MDBoxLayout
+				orientation:"horizontal"
+				padding:"10dp"
+				size_hint_y: 0.5
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Inicial"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla principal"
+						app.root.transition=SlideTransition(direction="left")
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Siguiente"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla 04"
+						app.root.transition=SlideTransition(direction="right")
+
+
+	MDScreen:
+		name: "pantalla 04"
+		md_bg_color:0,.5,.5,1
+		
+		MDBoxLayout:
+			orientation: "vertical"
+
+			#El rectangulo de arriba con el nombre de la APP
+			MDBoxLayout:
+				size_hint:1,.2
+				orientation:"horizontal"
+				padding:"10dp"
+				MDCard:
+					radius:"10dp"
+					padding:"10dp"
+					line_color:1,0,1,1
+					
+					#El nombre del rectángulo
+					MDLabel:
+						text:"JAGUAR CONTROL REMOTO"
+						halign:"center"
+						pos_hint:{"center_y":0.5}
+
+			MDBoxLayout:
+				size_hint:1,.6
+				orientation: "vertical"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:nombre_usuario
+						size_hint_y: 0.2
+						text:"Nombre del usuario: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:nombre_usuario_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:correo_usuario
+						size_hint_y: 0.2
+						text:"Correo del Usuario: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:correo_usuario_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:telefono_usuario
+						size_hint_y: 0.2
+						text:"Teléfono del usuario:"
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:telefono_usaurio_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+					
+
+
+			#Los dos botones de abajo
+			MDBoxLayout
+				orientation:"horizontal"
+				padding:"10dp"
+				size_hint_y: 0.5
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Inicial"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla principal"
+						app.root.transition=SlideTransition(direction="left")
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Siguiente"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla 05"
+						app.root.transition=SlideTransition(direction="right")
+
+
+	MDScreen:
+		name: "pantalla 05"
+		md_bg_color:0,.5,.5,1
+		MDBoxLayout:
+			orientation: "vertical"
+
+			#El rectangulo de arriba con el nombre de la APP
+			MDBoxLayout:
+				size_hint:1,.2
+				orientation:"horizontal"
+				padding:"10dp"
+				MDCard:
+					radius:"10dp"
+					padding:"10dp"
+					line_color:1,0,1,1
+					
+					#El nombre del rectángulo
+					MDLabel:
+						text:"JAGUAR CONTROL REMOTO"
+						halign:"center"
+						pos_hint:{"center_y":0.5}
+
+			MDBoxLayout:
+				size_hint:1,.6
+				orientation: "vertical"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:puertas_cerradas
+						size_hint_y: 0.2
+						text:"Todas las puertas cerradas? "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:puertas_cerradas_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:puerta_del_izq
+						size_hint_y: 0.2
+						text:"Puerta Delantera Izquierda Cerrada? "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:puerta_del_izq_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:bloqueo_puert_del_izq
+						size_hint_y: 0.2
+						text:"Puerta Delantera Izquierda Bloqueada? "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:bloqueo_puert_del_izq_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+	
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:puerta_del_dec
+						size_hint_y: 0.2
+						text:"Puerta Delantera derecha Cerrada? "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:puerta_del_dec_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:bloqueo_puert_del_dec
+						size_hint_y: 0.2
+						text:"Puerta Delantera Derecha Bloqueada? "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:bloqueo_puert_del_dec_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:puerta_tra_izq
+						size_hint_y: 0.2
+						text:"Puerta Trasera Izquierda Cerrada? "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:puerta_tra_izq_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:bloqueo_puert_tra_izq
+						size_hint_y: 0.2
+						text:"Puerta trasera Izquierda Bloqueada? "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:bloqueo_puert_tra_izq_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:puerta_tra_dec
+						size_hint_y: 0.2
+						text:"Puerta Trasera derecha Cerrada? "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:puerta_tra_dec_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:bloqueo_puert_tra_dec
+						size_hint_y: 0.2
+						text:"Puerta trasera derecha Bloqueada? "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:bloqueo_puert_tra_dec_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:capo
+						size_hint_y: 0.2
+						text:"Capó motor Cerrado? "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:capo_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:bloqueo_capo
+						size_hint_y: 0.2
+						text:"Capó motor Bloqueado? "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:bloqueo_capo_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:maletero
+						size_hint_y: 0.2
+						text:"Maletero Cerrado? "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:maletero_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:bloqueo_maletero
+						size_hint_y: 0.2
+						text:"Maletero Bloqueado? "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:bloqueo_maletero_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+
+			#Los dos botones de abajo
+			MDBoxLayout
+				orientation:"horizontal"
+				padding:"10dp"
+				size_hint_y: 0.5
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Inicial"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla principal"
+						app.root.transition=SlideTransition(direction="left")
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Siguiente"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla 06"
+						app.root.transition=SlideTransition(direction="right")
+
+	MDScreen:
+		name: "pantalla 06"
+		CustomizeScreen:
+			text:"Pantalla Seis"
+
+	MDScreen:
+		name: "presion ruedas"
+		md_bg_color:0,.5,.5,1
+
+		MDBoxLayout:
+			orientation: "vertical"
+
+			#El rectangulo de arriba con el nombre de la APP
+			MDBoxLayout:
+				size_hint:1,.2
+				orientation:"horizontal"
+				padding:"10dp"
+				MDCard:
+					radius:"10dp"
+					padding:"10dp"
+					line_color:1,0,1,1
+					
+					#El nombre del rectángulo
+					MDLabel:
+						text:"JAGUAR CONTROL REMOTO"
+						halign:"center"
+						pos_hint:{"center_y":0.5}
+
+			MDBoxLayout:
+				size_hint:1,.6
+				orientation: "vertical"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:pres_rued_del_izq
+						size_hint_y: 0.2
+						text:"Rueda delantera izquierda: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:pres_rued_del_izq_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:pres_rued_del_der
+						size_hint_y: 0.2
+						text:"Rueda delantera derecha: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:pres_rued_del_der_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+					
+					MDLabel:
+						id:pres_rued_tra_izq
+						size_hint_y: 0.2
+						text:"Rueda trasera izquierda: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:pres_rued_tra_izq_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:pres_rued_tra_dec
+						size_hint_y: 0.2
+						text:"Rueda trasera derecha: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:pres_rued_tra_dec_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				
+
+			#Los dos botones de abajo
+			MDBoxLayout
+				orientation:"horizontal"
+				padding:"10dp"
+				size_hint_y: 0.5
+
+				MDFillRoundFlatButton:
+					text:"Mantenimiento Vehículo"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla 03"
+						app.root.transition=SlideTransition(direction="left")
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Siguiente"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="estado ruedas"
+						app.root.transition=SlideTransition(direction="right")
+
+
+	MDScreen:
+		name: "estado ruedas"
+		md_bg_color:0,.5,.5,1
+		
+		MDBoxLayout:
+			orientation: "vertical"
+
+			#El rectangulo de arriba con el nombre de la APP
+			MDBoxLayout:
+				size_hint:1,.2
+				orientation:"horizontal"
+				padding:"10dp"
+				MDCard:
+					radius:"10dp"
+					padding:"10dp"
+					line_color:1,0,1,1
+					
+					#El nombre del rectángulo
+					MDLabel:
+						text:"JAGUAR CONTROL REMOTO"
+						halign:"center"
+						pos_hint:{"center_y":0.5}
+
+			MDBoxLayout:
+				size_hint:1,.6
+				orientation: "vertical"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:est_rued_del_izq
+						size_hint_y: 0.2
+						text:"Rueda delantera izquierda: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:est_rued_del_izq_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:est_rued_del_der
+						size_hint_y: 0.2
+						text:"Rueda delantera derecha: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:est_rued_del_der_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+					
+					MDLabel:
+						id:est_rued_tra_izq
+						size_hint_y: 0.2
+						text:"Rueda trasera izquierda: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:est_rued_tra_izq_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:est_rued_tra_dec
+						size_hint_y: 0.2
+						text:"Rueda trasera derecha: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:est_rued_tra_dec_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				
+			#Los dos botones de abajo
+			MDBoxLayout
+				orientation:"horizontal"
+				padding:"10dp"
+				size_hint_y: 0.5
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Mantenimiento"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla 03"
+						app.root.transition=SlideTransition(direction="left")
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Siguiente"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla 04"
+						app.root.transition=SlideTransition(direction="right")
+
+
+	MDScreen:
+		name: "aire acondicionado"
+		md_bg_color:0,.5,.5,1
+		
+		MDBoxLayout:
+			orientation: "vertical"
+
+			#El rectangulo de arriba con el nombre de la APP
+			MDBoxLayout:
+				size_hint:1,.2
+				orientation:"horizontal"
+				padding:"10dp"
+				MDCard:
+					radius:"10dp"
+					padding:"10dp"
+					line_color:1,0,1,1
+					
+					#El nombre del rectángulo
+					MDLabel:
+						text:"JAGUAR CONTROL REMOTO"
+						halign:"center"
+						pos_hint:{"center_y":0.5}
+
+			MDBoxLayout:
+				size_hint:1,.6
+				orientation: "vertical"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:aire_operando
+						size_hint_y: 0.2
+						text:"Aire acondicionado en funcionamiento: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:aire_operando_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:aire_preoperando
+						size_hint_y: 0.2
+						text:"Aire acondicionado Preoperando: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:aire_preoperando_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:tem_aire_01
+						size_hint_y: 0.2
+						text:"Temperatura Aire Acondiconado 1: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:tem_aire_01_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:tem_aire_02
+						size_hint_y: 0.2
+						text:"Temperatura Aire Acondiconado 2: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:tem_aire_02_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+							
+				
+			#Los dos botones de abajo
+			MDBoxLayout
+				orientation:"horizontal"
+				padding:"10dp"
+				size_hint_y: 0.5
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Mantenimiento"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla 03"
+						app.root.transition=SlideTransition(direction="left")
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Siguiente"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla 04"
+						app.root.transition=SlideTransition(direction="right")
+
+	MDScreen:
+		name: "coche electrico"
+		md_bg_color:0,.5,.5,1
+		
+		MDBoxLayout:
+			orientation: "vertical"
+
+			#El rectangulo de arriba con el nombre de la APP
+			MDBoxLayout:
+				size_hint:1,.2
+				orientation:"horizontal"
+				padding:"10dp"
+				MDCard:
+					radius:"10dp"
+					padding:"10dp"
+					line_color:1,0,1,1
+					
+					#El nombre del rectángulo
+					MDLabel:
+						text:"JAGUAR CONTROL REMOTO"
+						halign:"center"
+						pos_hint:{"center_y":0.5}
+
+			MDBoxLayout:
+				size_hint:1,.6
+				orientation: "vertical"
+
+				MDBoxLayout:
+					orientation:"horizontal"
+					size_hint:1,.2
+					padding:"10dp"
+
+					MDLabel:
+						id:carga_coche
+						size_hint_y: 0.2
+						text:"Carga Bateria: "
+						halign:"left"
+						pos_hint:{"center_x":0}
+						theme_text_color: "Custom"
+						text_color: 0, 0, 1, 1
+						padding:"10dp"
+					MDLabel:
+						id:carga_coche_resp
+						size_hint_y: 0.2
+						text:""
+						halign:"right"
+						pos_hint:{"center_x":1}
+						theme_text_color: "Custom"
+						text_color: 1, 0, 0, 1
+						padding:"10dp"
+
+			
+				
+			#Los dos botones de abajo
+			MDBoxLayout
+				orientation:"horizontal"
+				padding:"10dp"
+				size_hint_y: 0.5
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Mantenimiento"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla 03"
+						app.root.transition=SlideTransition(direction="left")
+
+				MDFillRoundFlatButton:
+					text:"Pantalla Siguiente"
+					size_hint_x: 0.5  # Ocupa la mitad del ancho
+					on_release:
+						app.root.current="pantalla 04"
+						app.root.transition=SlideTransition(direction="right")
